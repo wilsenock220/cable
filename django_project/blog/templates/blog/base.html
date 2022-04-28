@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% if title %}
+    <title>Blog - {{ title }}</title>
+    {% else %}
+    <title>Blog</title>
+    {% endif %}
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" href="{% static 'blog/css/mdb.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}" />
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand me-2" href="https://mdbgo.com/">
+                <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="16" alt="MDB Logo" loading="lazy" style="margin-top: -1px;" />
+            </a>
+
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-primary me-3"><a href="{% url 'logout' %}">Logout</a></button>
+                    <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i class="fab fa-profile"></i></a> {% else %}
+                    <button type="button" class="btn btn-link px-3 me-2"><a href="{% url 'login' %}">Login</a></button>
+                    <button type="button" class="btn btn-link px-3 me-3"><a href="{% url 'register' %}">Sign up!</a></button> {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-2">
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %} {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% block content %}{% endblock %}
+                </div>
+                <div class="col-lg-4 p-4">
+                    <div class="card">
+                        <div class="card-header px-3">Featured</div>
+                        <ul class="list-group list-group-light list-group-small">
+                            <li class="list-group-item px-3">Cras justo odio</li>
+                            <li class="list-group-item px-3">Dapibus ac facilisis in</li>
+                            <li class="list-group-item px-3">Vestibulum at eros</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript"></script>
+
+</body>
+
+</html>
